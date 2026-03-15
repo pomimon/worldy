@@ -181,6 +181,7 @@ function create() {
         startPosition: { x: 16, y: 8 },
         offsetY: -4,
         offsetY: 0,
+        speed: 4,
       },
      ...chicken.map((sprite, i) => ({
       id: CHICKEN_IDS[i],
