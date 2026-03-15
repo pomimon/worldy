@@ -179,8 +179,7 @@ function create() {
         sprite: playerSprite,
         walkingAnimationMapping: USER_WALK,
         startPosition: { x: 16, y: 8 },
-        offsetY: -4,
-        offsetY: 0,
+        offsetY: -6,
         speed: 4,
       },
      ...chicken.map((sprite, i) => ({
