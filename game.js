@@ -56,6 +56,29 @@ const CHICK_WALK = {
   },
 }
 
+const USER_WALK = {
+  up: {
+    leftFoot: 4,
+    standing: 3,
+    rightFoot: 5,
+  },
+  down: {
+    leftFoot: 1,
+    standing: 0,
+    rightFoot: 2,
+  },
+  left: {
+    leftFoot: 7,
+    standing: 6,
+    rightFoot: 8,
+  },
+  right: {
+    leftFoot: 10,
+    standing: 9,
+    rightFoot: 11,
+  },
+}
+
 const CHICKEN_IDS = ["chicken1", "chicken2", "chicken3"];
 const COW_IDS = ["cow1", "cow2"];
 
@@ -84,17 +107,15 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-  console.log("preload", this)
 
   for (const [name, path] of Object.entries(IMAGES)) {
     this.load.image(name, path);
   }
 
   this.load.tilemapTiledJSON('main-map', 'assets/land.tmj');
-  console.log("this.load.spritesheet", this.load.spritesheet)
-  this.load.spritesheet("fluffy", "assets/fluffy.png", {
+  this.load.spritesheet("fluffy", "assets/sprite.png", {
     frameWidth: 16,
-    frameHeight: 20,
+    frameHeight: 16,
   });
   this.load.spritesheet("ChickenSprites", "assets/ChickenSprites.png", {
     frameWidth: 16,
@@ -109,10 +130,8 @@ function preload() {
 }
 
 function create() {
-  console.log("create", this)
 
   this.cameras.main.setZoom(4.0);
-  console.log("setbounds", this.cameras.main.setBounds)
   this.cameras.main.setBounds(0, 0, window.innerWidth, window.innerHeight);
 
   const tilemap = this.make.tilemap({ key: 'main-map' });
@@ -158,9 +177,10 @@ function create() {
       {
         id: "fluffy",
         sprite: playerSprite,
-        walkingAnimationMapping: 0,
-        startPosition: { x: 5, y: 30 },
+        walkingAnimationMapping: USER_WALK,
+        startPosition: { x: 16, y: 8 },
         offsetY: -4,
+        offsetY: 0,
       },
      ...chicken.map((sprite, i) => ({
       id: CHICKEN_IDS[i],
@@ -221,9 +241,9 @@ function setupNPCMovement() {
   const randomLR = () => Phaser.Math.RND.pick(["left", "right"])
 
   const timers = [
-    ["chicken1", 3000],
-    ["chicken2", 3500],
-    ["chicken3", 2750],
+    ["chicken1", 2000],
+    ["chicken2", 2500],
+    ["chicken3", 1750],
     ["cow1", 400],
     ["cow2", 500],
   ]
